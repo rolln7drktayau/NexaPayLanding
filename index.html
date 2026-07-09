@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NexaPay - Paiements mobiles africains</title>
+  <meta name="description" content="NexaPay regroupe vos portefeuilles mobiles, transferts, factures, QR codes et paiements marchands dans une application simple et securisee.">
+  <style>
+    :root {
+      --green: #079b61;
+      --green-2: #18c983;
+      --green-dark: #023b2b;
+      --mint: #e9fbf3;
+      --mint-2: #f5fff9;
+      --ink: #071827;
+      --muted: #667085;
+      --line: #dcebe4;
+      --white: #ffffff;
+      --yellow: #ffcc32;
+      --shadow: 0 22px 58px rgba(7, 24, 39, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 7% 14%, rgba(24,201,131,.18), transparent 28%),
+        linear-gradient(180deg, #f8fffb 0%, #ffffff 42%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px clamp(20px, 5vw, 76px);
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(7,155,97,.12);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 950; font-size: 25px; }
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      color: white;
+      font-weight: 950;
+      font-size: 30px;
+      font-style: italic;
+      background: linear-gradient(135deg, #004b32 0%, #079b61 48%, #26d88b 100%);
+      box-shadow: 0 14px 28px rgba(7,155,97,.24);
+    }
+    .links { display: flex; align-items: center; gap: 26px; color: var(--muted); font-weight: 800; }
+    .links a:hover { color: var(--green); }
+    .cta, .ghost {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 50px;
+      padding: 0 23px;
+      border-radius: 999px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+    .cta { background: var(--green); color: white; box-shadow: 0 18px 34px rgba(7,155,97,.24); }
+    .ghost { background: white; border: 1px solid var(--line); color: var(--green-dark); }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 430px);
+      gap: clamp(34px, 7vw, 96px);
+      align-items: center;
+      padding: clamp(54px, 8vw, 108px) clamp(20px, 5vw, 76px) 52px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--green-dark);
+      font-weight: 950;
+      border: 1px solid rgba(7,155,97,.14);
+    }
+    h1 { margin: 20px 0 0; font-size: clamp(44px, 7vw, 92px); line-height: .94; letter-spacing: 0; max-width: 820px; }
+    .lead { margin: 24px 0 0; max-width: 720px; color: var(--muted); font-size: clamp(18px, 2vw, 24px); line-height: 1.45; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+    .proofs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 710px; margin-top: 34px; }
+    .proof {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(7,155,97,.12);
+      box-shadow: 0 16px 40px rgba(7,24,39,.06);
+    }
+    .proof strong { display: block; font-size: 24px; }
+    .proof span { color: var(--muted); font-weight: 700; font-size: 13px; }
+    .phone-wrap { position: relative; display: grid; place-items: center; }
+    .phone-glow {
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      border-radius: 50%;
+      background: rgba(24,201,131,.22);
+      filter: blur(20px);
+    }
+    .phone {
+      position: relative;
+      width: min(100%, 390px);
+      min-height: 690px;
+      border-radius: 46px;
+      padding: 15px;
+      background: #071827;
+      box-shadow: 0 36px 80px rgba(7,24,39,.28);
+    }
+    .screen {
+      height: 660px;
+      overflow: hidden;
+      border-radius: 35px;
+      background: #f6faf8;
+    }
+    .screen-top {
+      padding: 24px 20px 118px;
+      color: white;
+      background:
+        radial-gradient(circle at 76% 22%, rgba(255,255,255,.18), transparent 30%),
+        linear-gradient(135deg, #004a32, #15bd78);
+    }
+    .screen-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .bell { width: 42px; height: 42px; border-radius: 16px; display: grid; place-items: center; background: rgba(255,255,255,.16); }
+    .demo-pill { margin-top: 14px; padding: 10px 14px; border-radius: 12px; color: #026440; background: rgba(255,255,255,.80); font-weight: 900; }
+    .balance { margin-top: 14px; padding: 18px; border-radius: 20px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); }
+    .balance span { color: #d9f7e8; font-weight: 800; }
+    .balance strong { display: block; margin-top: 8px; font-size: 34px; letter-spacing: 0; }
+    .quick { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: -72px 16px 18px; }
+    .tile { min-height: 88px; border-radius: 18px; background: white; display: grid; place-items: center; text-align: center; font-size: 12px; font-weight: 900; box-shadow: 0 16px 32px rgba(7,24,39,.12); }
+    .tile b { display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 7px; color: var(--green); background: var(--mint); border-radius: 12px; font-size: 18px; }
+    .promo { margin: 0 16px 16px; padding: 18px; border-radius: 22px; background: var(--mint); border: 1px solid #bbefd8; display: flex; gap: 14px; align-items: center; }
+    .promo-mark { width: 50px; height: 50px; border-radius: 15px; display: grid; place-items: center; color: white; font-size: 34px; font-style: italic; font-weight: 950; background: linear-gradient(135deg, #004b32, #18c983); }
+    .tx-head { margin: 0 18px 8px; display: flex; justify-content: space-between; font-weight: 950; }
+    .tx { margin: 9px 16px; padding: 13px; border-radius: 18px; background: white; display: flex; justify-content: space-between; gap: 10px; box-shadow: 0 10px 22px rgba(7,24,39,.06); }
+    .tx small { display: block; color: var(--muted); margin-top: 3px; }
+    .positive { color: var(--green); }
+    .section { padding: 76px clamp(20px, 5vw, 76px); }
+    .section.alt { background: var(--mint-2); border-top: 1px solid rgba(7,155,97,.10); border-bottom: 1px solid rgba(7,155,97,.10); }
+    .section-title { max-width: 820px; margin-bottom: 30px; }
+    .section-title h2 { margin: 0; font-size: clamp(32px, 4vw, 54px); line-height: 1; }
+    .section-title p { margin: 16px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .card {
+      padding: 28px;
+      border-radius: 26px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .card .icon { width: 48px; height: 48px; border-radius: 16px; display: grid; place-items: center; color: var(--green); background: var(--mint); font-size: 24px; font-weight: 900; margin-bottom: 18px; }
+    .card h3 { margin: 0 0 10px; font-size: 21px; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.58; font-weight: 600; }
+    .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: step; }
+    .step { counter-increment: step; padding: 24px; border-radius: 24px; background: white; border: 1px solid var(--line); }
+    .step::before { content: counter(step); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--green); color: white; font-weight: 950; margin-bottom: 16px; }
+    .step h3 { margin: 0 0 8px; }
+    .step p { margin: 0; color: var(--muted); line-height: 1.5; font-weight: 600; }
+    .mission {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+      gap: 28px;
+      align-items: stretch;
+      padding: 34px;
+      border-radius: 34px;
+      color: white;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(255,204,50,.35), transparent 20%),
+        linear-gradient(135deg, #023b2b, #079b61);
+      box-shadow: 0 28px 70px rgba(7,155,97,.20);
+    }
+    .mission h2 { margin: 0; font-size: clamp(32px, 5vw, 60px); line-height: 1; }
+    .mission p { color: #d9f7e8; font-size: 18px; line-height: 1.55; }
+    .mission-box { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18); border-radius: 26px; padding: 24px; }
+    .mission-box strong { display: block; font-size: 34px; }
+    .download {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 22px;
+      align-items: center;
+      padding: 30px;
+      border-radius: 30px;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .download h2 { margin: 0 0 8px; }
+    .download p { margin: 0; color: var(--muted); font-weight: 600; }
+    footer { padding: 34px clamp(20px, 5vw, 76px); background: var(--green-dark); color: white; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    footer a { color: #bdf6db; font-weight: 900; }
+    @media (max-width: 980px) {
+      .links { display: none; }
+      .hero, .mission, .download { grid-template-columns: 1fr; }
+      .proofs, .grid, .steps { grid-template-columns: 1fr; }
+      .phone { margin: 0 auto; }
+      .download .cta { justify-self: start; }
+    }
+    @media (max-width: 420px) {
+      .nav { padding: 14px 16px; }
+      .brand { font-size: 21px; }
+      .hero { padding-inline: 16px; }
+      .section { padding-inline: 16px; }
+      .phone { min-height: 650px; padding: 12px; }
+      .screen { height: 625px; }
+      .quick { gap: 8px; margin-left: 12px; margin-right: 12px; }
+      .tile { font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="#"><span class="mark">N</span><span>NexaPay</span></a>
+    <div class="links">
+      <a href="#solution">Solution</a>
+      <a href="#fonctionnement">Fonctionnement</a>
+      <a href="#securite">Securite</a>
+      <a href="privacy.html">Confidentialite</a>
+    </div>
+    <a class="cta" href="#telecharger">Tester l'app</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <span class="eyebrow">Mobile money · USSD · Maviance · QR</span>
+        <h1>Une app pour gérer vos paiements mobiles africains.</h1>
+        <p class="lead">NexaPay centralise vos portefeuilles Orange Money, MTN Mobile Money et services compatibles Maviance pour envoyer de l'argent, payer les factures, scanner les marchands et suivre chaque operation.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#telecharger">Demander un acces test</a>
+          <a class="ghost" href="https://wa.me/33699346385">Parler au support</a>
+          <a class="ghost" href="maviance_partner_report_fr.pdf">Rapport Maviance PDF</a>
+        </div>
+        <div class="proofs">
+          <div class="proof"><strong>4</strong><span>actions clés depuis l'accueil</span></div>
+          <div class="proof"><strong>+237</strong><span>Cameroon first, extensible Afrique</span></div>
+          <div class="proof"><strong>0</strong><span>secret paiement dans l'app</span></div>
+        </div>
+      </div>
+
+      <div class="phone-wrap" aria-label="Apercu de l'application NexaPay">
+        <div class="phone-glow"></div>
+        <div class="phone">
+          <div class="screen">
+            <div class="screen-top">
+              <div class="screen-row">
+                <strong>Bonjour, Idriss</strong>
+                <span class="bell">⌁</span>
+              </div>
+              <div class="demo-pill">Mode demo actif</div>
+              <div class="balance">
+                <span>Solde total</span>
+                <strong>245 750 FCFA</strong>
+              </div>
+            </div>
+            <div class="quick">
+              <div class="tile"><b>↗</b>Transfert</div>
+              <div class="tile"><b>▯</b>Recharge</div>
+              <div class="tile"><b>▤</b>Facture</div>
+              <div class="tile"><b>▣</b>Marchand</div>
+            </div>
+            <div class="promo">
+              <span class="promo-mark">N</span>
+              <div>
+                <strong>NexaPay</strong>
+                <p>Simple, rapide et securise.</p>
+              </div>
+            </div>
+            <div class="tx-head"><span>Dernieres transactions</span><span class="positive">Voir tout</span></div>
+            <div class="tx"><span>Transfert a Martin<small>25 mai 2025 · 14:35</small></span><strong>-25 000</strong></div>
+            <div class="tx"><span>Facture ENEO<small>25 mai 2025 · 10:12</small></span><strong>-18 500</strong></div>
+            <div class="tx"><span>Recharge MTN<small>24 mai 2025 · 18:45</small></span><strong class="positive">+10 000</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="solution">
+      <div class="section-title">
+        <h2>Conçu pour les vrais usages mobile money.</h2>
+        <p>La page reprend une structure claire et commerciale proche des meilleures fintechs : benefices immediats, parcours simple, support visible et confiance mise en avant.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><div class="icon">1</div><h3>Portefeuilles multiples</h3><p>Ajoutez plusieurs numeros par operateur, choisissez le portefeuille source et actualisez le solde via les codes USSD.</p></article>
+        <article class="card"><div class="icon">2</div><h3>Factures et marchands</h3><p>Verifiez les factures avant paiement, payez les marchands par QR ou code, puis suivez le statut avec des reçus clairs.</p></article>
+        <article class="card"><div class="icon">3</div><h3>Mode demo libre</h3><p>Testez les flux avec soldes fictifs, contacts virtuels et progressions simulees sans toucher a de vrais fonds.</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="fonctionnement">
+      <div class="section-title">
+        <h2>Un parcours en quatre gestes.</h2>
+        <p>Le site doit expliquer rapidement ce que l'utilisateur fera dans l'application, sans jargon technique.</p>
+      </div>
+      <div class="steps">
+        <article class="step"><h3>Ajoutez un wallet</h3><p>Selectionnez le pays, l'operateur et le numero local du portefeuille mobile.</p></article>
+        <article class="step"><h3>Choisissez l'action</h3><p>Transfert, recharge, facture ou paiement marchand sont accessibles depuis l'accueil.</p></article>
+        <article class="step"><h3>Verifiez</h3><p>Les informations critiques sont confirmees avant de payer ou de lancer une operation.</p></article>
+        <article class="step"><h3>Suivez</h3><p>L'historique détaille date, heure, bénéficiaire, methode, statut et reference.</p></article>
+      </div>
+    </section>
+
+    <section class="section alt" id="securite">
+      <div class="mission">
+        <div>
+          <h2>Notre mission : rendre le paiement mobile plus lisible.</h2>
+          <p>NexaPay ne remplace pas les operateurs. L'application organise l'experience, prepare les flux USSD lorsque c'est le bon canal et passe par le backend pour les operations interoperateurs et Maviance.</p>
+          <div class="hero-actions">
+            <a class="cta" href="privacy.html">Lire la confidentialite</a>
+            <a class="ghost" href="https://wa.me/33699346385">Support WhatsApp</a>
+          </div>
+        </div>
+        <div class="mission-box">
+          <strong>Securite</strong>
+          <p>Aucun secret Maviance n'est embarque dans l'application mobile. Les signatures et credentials restent cote serveur.</p>
+          <strong>Transparence</strong>
+          <p>Chaque transaction doit afficher le beneficiaire, le canal, les frais, la date, la reference et le statut.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="telecharger">
+      <div class="download">
+        <div>
+          <h2>Version de test disponible</h2>
+          <p>Installez l'APK de test depuis le depot ou testez la version web standard generee par Flutter. La landing GitHub Pages est servie depuis le dossier <strong>docs</strong>.</p>
+        </div>
+        <a class="cta" href="https://github.com/rolln7drktayau/NexaPayLanding">Voir le site GitHub</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>NexaPay 1.0.0+1</span>
+    <span><a href="privacy.html">Politique de confidentialite</a> · <a href="https://wa.me/33699346385">WhatsApp</a> · <a href="https://github.com/rolln7drktayau/NexaPayLanding">GitHub</a></span>
+  </footer>
+</body>
+</html>
