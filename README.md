@@ -58,12 +58,12 @@ The report focuses only on the staging S3P signature issue observed during integ
 
 ## APK Distribution
 
-The current APK build is `1.0.0+1` and is published as split release APKs:
+The current APK build is `1.0.1+2` and is published as split release APKs:
 
 ```text
-downloads/NexaPay-1.0.0+1-arm64-v8a-release.apk
-downloads/NexaPay-1.0.0+1-armeabi-v7a-release.apk
-downloads/NexaPay-1.0.0+1-x86_64-release.apk
+downloads/NexaPay-1.0.1+2-arm64-v8a-release.apk
+downloads/NexaPay-1.0.1+2-armeabi-v7a-release.apk
+downloads/NexaPay-1.0.1+2-x86_64-release.apk
 ```
 
 The universal debug APK is about 218 MB and is not committed. The split release
