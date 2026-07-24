@@ -46,7 +46,9 @@ A technical report for Maviance is available here:
 maviance_partner_report_fr.pdf
 ```
 
-The report focuses only on the staging S3P signature issue observed during integration tests.
+The report documents the current staging integration status. S3P signing is
+validated for catalog and quote calls; remaining failures concern backend
+field mapping and payment orchestration.
 
 ## Files
 
@@ -58,17 +60,14 @@ The report focuses only on the staging S3P signature issue observed during integ
 
 ## APK Distribution
 
-The current APK build is `1.0.4+5` and is published as split release APKs:
+The current Android build is `1.0.5+6`. The universal test APK and Play Store
+app bundle are attached to the GitHub release:
 
 ```text
-downloads/NexaPay-1.0.4+5-arm64-v8a-release.apk
-downloads/NexaPay-1.0.4+5-armeabi-v7a-release.apk
-downloads/NexaPay-1.0.4+5-x86_64-release.apk
+https://github.com/rolln7drktayau/NexaPayLanding/releases/tag/v1.0.5%2B6
 ```
 
-The universal debug APK is about 218 MB and is not committed. The split release
-files are kept under GitHub's file-size limit and are linked from the landing
-page.
+The debug APK is intentionally not distributed publicly.
 
 ## Security Note
 
